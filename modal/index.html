@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modal Sample</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/10upsanitize.css/11.0.1/sanitize.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <h1>Modal Sample</h1>
+      
+      <ul class="imageList">
+        <li
+          v-for="thumb in thumbnails"
+          :key="thumb.id"
+          class="imageList-item"
+        >
+          <button
+            type="button"
+            @click="openModal(thumb)"
+            class="imageList-button"
+          >
+            <img
+              :src="thumb.src"
+              alt=""
+              class="imageList-thumb"
+            />
+          </button>
+        </li>
+      </ul>
+
+      <div class="modal-container" v-show="isVisible">
+        <div class="modal-overlay">
+          <div
+            class="modal-body"
+            v-if="currentThumbnail !== undefined"
+          >
+            <div
+              class="modal-image-container"
+              :class="{'isLoaded': isThumbnailLoaded}"
+            >
+              <div :style="containerStyle">
+                <img
+                  :src="currentThumbnail.src"
+                  alt=""
+                  class="modal-image"
+                  @load.prevent.stop="onLoad"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ▼① -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.js"></script>
+    <!-- ▼② -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <!-- ▼③ -->
+    <script src="./app.js"></script>
+  </body>
+</html>
+
