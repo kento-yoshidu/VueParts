@@ -35,7 +35,10 @@
       </ul>
 
       <div class="modal-container" v-show="isVisible">
-        <div class="modal-overlay">
+        <div
+          class="modal-overlay"
+          @click.self="closeModal"
+        >
           <div
             class="modal-body"
             v-if="currentThumbnail !== undefined"
@@ -53,6 +56,14 @@
                 />
               </div>
             </div>
+            <p>
+              <button
+                class="button button--close"
+                @click="closeModal"
+              >
+                Close
+              </button>
+            </p>
           </div>
         </div>
       </div>
