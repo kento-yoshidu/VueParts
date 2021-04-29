@@ -81,6 +81,23 @@
   }
 }
 
+.modalButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 8px "ddd";
+}
+
+.modalButton--prev {
+  left: 0;
+  transform: translateX(-50%);
+}
+
+.modalButton--next {
+  right: 0;
+  transform: translateX(50%);
+}
+
 /* アプリ全体のスタイリング
   ================================*/
 .container {
