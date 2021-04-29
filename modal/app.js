@@ -51,7 +51,7 @@ Vue.createApp({
     prevThumbnail: function() {
       const prevIndex = this.currentThumbnailIndex - 1
       return this.thumbnails[
-        prevIndex < 0 ? this.thumbnails -1 : prevIndex
+        prevIndex < 0 ? this.thumbnails.length -1 : prevIndex
       ]
     },
     containerStyle: function() {
