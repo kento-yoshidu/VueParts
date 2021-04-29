@@ -158,3 +158,36 @@
   cursor: pointer;
 }
 
+/* モーダルの Transition
+  ================================*/
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-to,
+.modal-leave-from {
+  opacity: 1;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity .3s ease;
+}
+
+.thumbnail-enter-from,
+.thumbnail-leave-to {
+  opacity: 0;
+}
+
+.thumbnail-enter-to,
+.thumbnail-leave-from {
+  opacity: 1;
+}
+
+.thumbnail-enter-active {
+  transition: opacity 0.3s ease;
+}
+.thumbnail-leave-active {
+  transition: opacity 0.3s ease-in;
+}
