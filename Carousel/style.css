@@ -1,0 +1,103 @@
+/* カルーセルの Transition
+  ================================*/
+.next-leave-active,
+.prev-leave-active,
+.next-enter-active,
+.prev-enter-active {
+  transition: all 0.3s ease;
+}
+.next-leave-active,
+.prev-leave-active {
+  position: absolute;
+}
+.next-enter-from,
+.prev-leave-to {
+  transform: translateX(100%);
+}
+
+.prev-enter-from,
+.next-leave-to {
+  transform: translateX(-100%);
+}
+
+/* カルーセルに関連する要素のスタイリング
+  ================================*/
+.carousel-wrapper {
+  width: 100%;
+  max-width: 300px;
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+}
+
+.carousel-item {
+  width: 100%;
+}
+.carousel-item > img {
+  width: 100%;
+  vertical-align: top;
+}
+
+.carousel-navigation {
+  padding: 0;
+  margin: 20px 0;
+  list-style: none;
+}
+.carousel-navigation > li {
+  display: inline-block;
+}
+
+.carousel-pager {
+  padding: 0;
+  margin: 20px 0;
+  list-style: none;
+}
+.carousel-pager > li {
+  display: inline-block;
+  margin: 0 5px;
+}
+.carousel-pager > li > button {
+  appearance: none;
+  border: none;
+  background-color: #999;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+}
+
+.carousel-pager > li > button.isCurrent {
+  background-color: #f00;
+}
+
+/* アプリ全体のスタイリング
+  ================================*/
+
+body * {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1080px;
+  width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ボタンのスタイリング
+  ================================*/
+.button {
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 8px 16px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+button[disabled] {
+  cursor: auto;
+}
