@@ -13,6 +13,7 @@
     "test-all": "npm run check-format && npm run check-lint && npm run check-types"
   },
   "dependencies": {
+    "@prisma/client": "^3.15.1",
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0"
@@ -28,9 +29,10 @@
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.30.0",
+    "husky": "^8.0.0",
     "postcss": "^8.4.14",
+    "prisma": "^3.15.1",
     "tailwindcss": "^3.0.24",
-    "typescript": "4.7.2",
-    "husky": "^8.0.0"
+    "typescript": "4.7.2"
   }
 }
