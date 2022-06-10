@@ -117,6 +117,23 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@prisma/client@^3.15.1":
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.15.1.tgz#798e8bf0370abe686d599c822e93f7adb7c0c9c0"
+  integrity sha512-Lsk7oupvO9g99mrIs07iE6BIMouHs46Yq/YY8itTsUQNKfecsPuZvVYvcKci0pqRQ0neOpvIvoA/ouZmIMBCrQ==
+  dependencies:
+    "@prisma/engines-version" "3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
+
+"@prisma/engines-version@3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e":
+  version "3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e.tgz#bf5e2373ca68ce7556b967cb4965a7095e93fe53"
+  integrity sha512-e3k2Vd606efd1ZYy2NQKkT4C/pn31nehyLhVug6To/q8JT8FpiMrDy7zmm3KLF0L98NOQQcutaVtAPhzKhzn9w==
+
+"@prisma/engines@3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e":
+  version "3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e.tgz#f691893df506b93e3cb1ccc15ec6e5ac64e8e570"
+  integrity sha512-NHlojO1DFTsSi3FtEleL9QWXeSF/UjhCW0fgpi7bumnNZ4wj/eQ+BJJ5n2pgoOliTOGv9nX2qXvmHap7rJMNmg==
+
 "@types/json-schema@^7.0.9":
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
@@ -934,6 +951,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+husky@^8.0.0:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.1.tgz#511cb3e57de3e3190514ae49ed50f6bc3f50b3e9"
+  integrity sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==
+
 ignore@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.0.tgz#6d3bac8fa7fe0d45d9f9be7bac2fc279577e345a"
@@ -1417,6 +1439,13 @@ prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
+
+prisma@^3.15.1:
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-3.15.1.tgz#5f7e22012775af3861ce0ff517cba581c9bd7350"
+  integrity sha512-MLO3JUGJpe5+EVisA/i47+zlyF8Ug0ivvGYG4B9oSXQcPiUHB1ccmnpxqR7o0Up5SQgmxkBiEU//HgR6UuIKOw==
+  dependencies:
+    "@prisma/engines" "3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
 
 prop-types@^15.8.1:
   version "15.8.1"
