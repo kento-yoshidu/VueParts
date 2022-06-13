@@ -1,5 +1,5 @@
 const Articles = () => {
-  return <div>articles</div>;
-};
+  return <div>articles</div>
+}
 
-export default Articles;
+export default Articles
