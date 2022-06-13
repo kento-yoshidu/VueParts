@@ -1,19 +1,19 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
-import ProtectedRoute from './ProtectedRoute';
+import React from 'react'
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+import ProtectedRoute from './ProtectedRoute'
 
 // ログイン済みユーザにのみ表示するページ
 // 今回は、マイページと記事の詳細ページに関して、ログインを要求します
-const authRoutes = ['/mypage', '/articles/[id]'];
+const authRoutes = ['/mypage', '/articles/[id]']
 
 // children に型をつけています
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
-  const session = useSession();
-  const router = useRouter();
-  
+  const session = useSession()
+  const router = useRouter()
+
   // 認証情報取得中には、コンポーネントを表示させないようにしています
-  if (session.status === 'loading') return null;
+  if (session.status === 'loading') return null
 
   return (
     <>
@@ -27,7 +27,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
         children
       )}
     </>
-  );
-};
+  )
+}
 
-export default AuthWrapper;
+export default AuthWrapper

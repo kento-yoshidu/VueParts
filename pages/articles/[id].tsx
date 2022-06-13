@@ -1,5 +1,5 @@
 const Article = () => {
-  return <div>article</div>;
-};
+  return <div>article</div>
+}
 
-export default Article;
+export default Article
