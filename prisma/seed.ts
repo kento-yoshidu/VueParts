@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-// ここで、data/articles.ts に記述したデータをインポートしています
 import { articles } from '../data/articles'
 
 const prisma = new PrismaClient()
