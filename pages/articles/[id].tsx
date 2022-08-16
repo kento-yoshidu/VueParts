@@ -1,7 +1,25 @@
+import Router from 'next/router'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 import prisma from '../../lib/prisma'
 import { User } from '../../types/User'
+
+async function addBookmark(id: number): Promise<void> {
+  await fetch(process.env.NEXT_PUBLIC_VERCEL_URL + `/api/bookmark/add/${id}`, {
+    method: 'PUT',
+  })
+  Router.push(`/articles/${id}`)
+}
+
+async function removeBookmark(id: number): Promise<void> {
+  await fetch(
+    process.env.NEXT_PUBLIC_VERCEL_URL + `/api/bookmark/remove/${id}`,
+    {
+      method: 'PUT',
+    }
+  )
+  Router.push(`/articles/${id}`)
+}
 
 const Article = ({
   article,
@@ -19,8 +37,8 @@ const Article = ({
           {article.content}
         </p>
         {isBookmarked ? (
-          // ブックマークされている場合には、ブックマークを削除するボタンを設置します
           <button
+            onClick={() => removeBookmark(article.id)}
             type='button'
             className='mt-5 inline-flex items-center rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'
           >
@@ -30,8 +48,8 @@ const Article = ({
             </span>
           </button>
         ) : (
-          // ブックマークされていない場合には、ブックマークするボタンを設置します
           <button
+            onClick={() => addBookmark(article.id)}
             type='button'
             className='mt-5 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
           >
