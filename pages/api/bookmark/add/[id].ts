@@ -8,7 +8,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (session?.user?.email) {
     const result = await prisma.article.update({
       where: {
-        id: Number(req.body.id),
+        id: Number(req.query.id),
       },
       data: {
         users: {
