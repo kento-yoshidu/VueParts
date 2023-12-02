@@ -1,3 +1,22 @@
+import styles from './page.module.css'
+import { client } from "../../lib/client"
+
+export default async function Home() {
+  const data = await client.get({
+    endpoint: 'blog',
+  })
+
+  console.log("data = ", data)
+
+  return (
+    <main className={styles.main}>
+      <div className={styles.center}>{data.contents[0].title}</div>
+      <div className={styles.center}>{data.contents[0].content}</div>
+    </main>
+  )
+}
+
+/*
 import Image from 'next/image'
 import styles from './page.module.css'
 
@@ -93,3 +112,4 @@ export default function Home() {
     </main>
   )
 }
+*/
