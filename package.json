@@ -1,44 +1,24 @@
 {
+  "name": "microcms_blog",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prepare": "husky install",
-    "check-types": "tsc --pretty --noEmit",
-    "check-format": "npx prettier --check .",
-    "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "format": "npx prettier --write .",
-    "test-all": "yarn check-format && yarn check-lint && yarn check-types"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@next-auth/prisma-adapter": "^1.0.3",
-    "@prisma/client": "^3.15.1",
-    "next": "latest",
-    "next-auth": "^4.3.4",
-    "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.3"
   },
   "devDependencies": {
-    "@types/next": "^9.0.0",
-    "@types/node": "17.0.35",
-    "@types/react": "18.0.9",
-    "@types/react-dom": "18.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.27.1",
-    "@typescript-eslint/parser": "^5.27.1",
-    "autoprefixer": "^10.4.7",
-    "eslint": "^8.17.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-react": "^7.30.0",
-    "husky": "^8.0.0",
-    "postcss": "^8.4.14",
-    "prisma": "^3.15.1",
-    "tailwindcss": "^3.0.24",
-    "ts-node": "^10.9.1",
-    "typescript": "4.7.2"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.3"
   }
 }
