@@ -1,9 +1,11 @@
 use actix_web::{get, post, web::{self, get, resource}, App, HttpResponse, HttpServer, Responder};
 use std::env;
 use dotenv::dotenv;
-
 use reqwest::Client;
 use serde::Deserialize;
+use tera::{Tera, Context};
+// 静的ファイルの取得
+use actix_files::Files;
 
 #[derive(Debug, Deserialize, serde::Serialize)]
 struct Article {
@@ -34,7 +36,7 @@ async fn echo(req_body: String) -> impl Responder {
 }
 
 #[get("/articles")]
-async fn get_articles() -> impl Responder {
+async fn get_articles(tera: web::Data<Tera>) -> impl Responder {
     let client = Client::new();
 
     let api_key = env::var("MICROCMS_API_KEY").expect("MICROCMS_API_KEY must be set");
@@ -47,12 +49,16 @@ async fn get_articles() -> impl Responder {
         .await
         .expect("Failed to send request");
 
-          // レスポンスのステータスコードをチェック
     if response.status().is_success() {
-        // JSONをパースして、ベクトルとして取得
         let response: ResponseData = response.json().await.expect("Failed to parse JSON");
-        println!("{:?}", response);
-        HttpResponse::Ok().json(response.contents) // JSON形式でレスポンスを返す
+
+         // テンプレートに渡すコンテキストを設定
+        let mut context = Context::new();
+        context.insert("articles", &response.contents);
+
+        // テンプレートをレンダリングしてレスポンスを返す
+        let rendered = tera.render("index.html", &context).expect("Failed to render template");
+        HttpResponse::Ok().content_type("text/html").body(rendered)
     } else {
         HttpResponse::InternalServerError().body("Failed to fetch articles")
     }
@@ -66,11 +72,17 @@ async fn manual_hello() -> impl Responder {
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
 
-    HttpServer::new(|| {
+    // Teraの初期化
+    let tera = Tera::new("templates/**/*").expect("Failed to initialize Tera");
+
+    HttpServer::new(move || {
         App::new()
-            .service(hello)
-            .service(echo)
+            .app_data(web::Data::new(tera.clone()))
             .service(get_articles)
+            .service(
+                // 静的ファイル読み込み
+                web::scope("/static").service(Files::new("/", "./static"))
+            )
             .route("/hey", web::get().to(manual_hello))
     })
     .bind(("127.0.0.1", 8080))?
