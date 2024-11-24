@@ -1,17 +1,21 @@
-use actix_web::{get, post, web::{self, get, resource}, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, web::{self}, App, HttpResponse, HttpServer, Responder};
 use std::env;
 use dotenv::dotenv;
 use reqwest::Client;
 use serde::Deserialize;
-use tera::{Tera, Context};
-// 静的ファイルの取得
-use actix_files::Files;
+
+#[derive(Debug, Deserialize, serde::Serialize)]
+struct Tag {
+    name: String,
+    slug: String,
+}
 
 #[derive(Debug, Deserialize, serde::Serialize)]
 struct Article {
     id: String,
     title: String,
     content: String,
+    tags: Vec<Tag>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -22,21 +26,8 @@ struct ResponseData {
     limit: usize,
 }
 
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
-
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    let test = env::var("TEST").expect("Not found environment variable.");
-
-    let res = format!("{} {}", req_body, test);
-    HttpResponse::Ok().body(res)
-}
-
 #[get("/articles")]
-async fn get_articles(tera: web::Data<Tera>) -> impl Responder {
+async fn get_articles() -> impl Responder {
     let client = Client::new();
 
     let api_key = env::var("MICROCMS_API_KEY").expect("MICROCMS_API_KEY must be set");
@@ -58,8 +49,30 @@ async fn get_articles(tera: web::Data<Tera>) -> impl Responder {
     }
 }
 
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
+#[get("/articles/{id}")]
+async fn get_article(path: web::Path<String>) -> impl Responder {
+    let id = path.into_inner();
+
+    let client = reqwest::Client::new();
+    let api_key = env::var("MICROCMS_API_KEY").expect("MICROCMS_API_KEY must be set");
+    let endpoint = env::var("MICROCMS_ENDPOINT").expect("MICROCMS_ENDPOINT must be set");
+
+    let url = format!("{}/{}", endpoint, id);
+
+    let response = client
+        .get(url)
+        .header("X-API-KEY", api_key)
+        .send()
+        .await
+        .expect("Failed to send request");
+
+    if response.status().is_success() {
+        let response_data: Article = response.json().await.expect("Failed to parse JSON");
+
+        HttpResponse::Ok().json(response_data)
+    } else {
+        HttpResponse::InternalServerError().body("Failed to fetch articles")
+    }
 }
 
 #[actix_web::main]
@@ -70,18 +83,10 @@ async fn main() -> std::io::Result<()> {
     let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
     let port: u16 = port.parse().expect("PORT must be a valid u16 number");
 
-    // Teraの初期化
-    let tera = Tera::new("templates/**/*").expect("Failed to initialize Tera");
-
     HttpServer::new(move || {
         App::new()
-            .app_data(web::Data::new(tera.clone()))
             .service(get_articles)
-            .service(
-                // 静的ファイル読み込み
-                web::scope("/static").service(Files::new("/", "./static"))
-            )
-            .route("/hey", web::get().to(manual_hello))
+            .service(get_article)
     })
     .bind(("0.0.0.0", port))?
     .run()
