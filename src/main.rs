@@ -50,15 +50,9 @@ async fn get_articles(tera: web::Data<Tera>) -> impl Responder {
         .expect("Failed to send request");
 
     if response.status().is_success() {
-        let response: ResponseData = response.json().await.expect("Failed to parse JSON");
+        let response_data: ResponseData = response.json().await.expect("Failed to parse JSON");
 
-         // テンプレートに渡すコンテキストを設定
-        let mut context = Context::new();
-        context.insert("articles", &response.contents);
-
-        // テンプレートをレンダリングしてレスポンスを返す
-        let rendered = tera.render("index.html", &context).expect("Failed to render template");
-        HttpResponse::Ok().content_type("text/html").body(rendered)
+        HttpResponse::Ok().json(response_data.contents)
     } else {
         HttpResponse::InternalServerError().body("Failed to fetch articles")
     }
@@ -71,6 +65,10 @@ async fn manual_hello() -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
+
+    // PORT環境変数を取得 (デフォルトは8080)
+    let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
+    let port: u16 = port.parse().expect("PORT must be a valid u16 number");
 
     // Teraの初期化
     let tera = Tera::new("templates/**/*").expect("Failed to initialize Tera");
@@ -85,7 +83,7 @@ async fn main() -> std::io::Result<()> {
             )
             .route("/hey", web::get().to(manual_hello))
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("0.0.0.0", port))?
     .run()
     .await
 }
